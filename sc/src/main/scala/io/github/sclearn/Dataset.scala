@@ -1,8 +1,11 @@
 package io.github.sclearn
 
+import org.apache.spark.sql.types.StructType
+
 
 trait Dataset[T] {
 
+	def schema: StructType
 	def collect(): Array[T]
 
 }

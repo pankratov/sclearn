@@ -98,9 +98,9 @@ private[known] object ut {
 				for (x <- 0 until width; y <- 0 until height) {
 					row(y * width + x) = in.readUnsignedByte()
 				}
-				ds(c) = new ArrayRow(row)
+				ds(c) = new ArrayRow(null, row)
 			}
-			new ArrayDataset[ArrayRow](ds)
+			new ArrayDataset[ArrayRow](null, ds)
 		}
 	}
 
@@ -116,9 +116,9 @@ private[known] object ut {
 			for (c <- 0 until count) {
 				val row = new Array[Any](1)
 				row(0) = in.readUnsignedByte()
-				ds(c) = new ArrayRow(row)
+				ds(c) = new ArrayRow(null, row)
 			}
-			new ArrayDataset[ArrayRow](ds)
+			new ArrayDataset[ArrayRow](null, ds)
 		}
 	}
 

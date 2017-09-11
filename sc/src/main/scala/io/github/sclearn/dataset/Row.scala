@@ -1,10 +1,13 @@
 package io.github.sclearn.dataset
 
+import org.apache.spark.sql.types.StructType
+
 
 trait Row {
 
 	def get(i: Int): Any
 	def length: Int
+	def schema: StructType
 
 	def size: Int = length
 	def apply(i: Int): Any = get(i)

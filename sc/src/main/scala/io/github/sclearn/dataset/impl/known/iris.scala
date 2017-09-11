@@ -11,6 +11,8 @@ import java.io.FileReader
 import java.io.BufferedReader
 import java.util.StringTokenizer
 
+import org.apache.spark.sql.types._
+
 import util.Resource
 import monitor.ProgressMeter
 
@@ -43,6 +45,15 @@ case class IRIS_FETCHER(
 	, cacheDir		= cacheDir
 ) {
 
+	private[this] val schema = StructType(
+		StructField("sepal_width", DoubleType, true) ::
+		StructField("sepal_length", DoubleType, false) ::
+		StructField("petal_width", DoubleType, true) ::
+		StructField("petal_length", DoubleType, false) ::
+		StructField("class", StringType, false) ::
+		Nil
+	)
+
 	def read(): Dataset[ArrayRow] = {
 		progressMeter.info("reading: " + path.toString)
 		Resource(new BufferedReader(new FileReader(path.toString))).map{ in =>
@@ -58,12 +69,12 @@ case class IRIS_FETCHER(
 					arr(2) = java.lang.Double.valueOf(tkn.nextToken())
 					arr(3) = java.lang.Double.valueOf(tkn.nextToken())
 					arr(4) = tkn.nextToken()
-					ds(i) = new ArrayRow(arr)
+					ds(i) = new ArrayRow(schema, arr)
 				}
 				line = in.readLine()
 				i += 1
 			}
-			new ArrayDataset[ArrayRow](ds)
+			new ArrayDataset[ArrayRow](schema, ds)
 		}
 	}
 
