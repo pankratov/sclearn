@@ -32,7 +32,7 @@ abstract class HTTPFetcher[T](
 		if (force || !Files.exists(path)) {
 			download()
 			if (part.compressed) {
-				progressMeter.info("Unpack: " + part.file + part.ext)
+				progressMeter.info("Unpacking: " + part.file + part.ext)
 				ArchiveUtils.unzipFileTo(tmpPath.toString, path.toString)
 				progressMeter.info("Done")
 			}
@@ -46,11 +46,11 @@ abstract class HTTPFetcher[T](
 		val m = System.getenv()
 		val http_proxy = m.get("http_proxy")
 		val https_proxy = m.get("https_proxy")
-		if (https_proxy != null) {
+		if (https_proxy != null && https_proxy.length > 0) {
 			val url = new URL(https_proxy)
 			return (url.getHost, url.getPort)
 		}
-		if (http_proxy != null) {
+		if (http_proxy != null && http_proxy.length > 0) {
 			val url = new URL(http_proxy)
 			return (url.getHost, url.getPort)
 		}
@@ -62,18 +62,21 @@ abstract class HTTPFetcher[T](
 			val url = new URL(part.uri)
 			val px = getProxy()
 			if (px._1.length > 0) {
+				progressMeter.info("Connecting through proxy: " + px._1 + ":" + px._2)
 				val proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(px._1, px._2))
 				Some(url.openConnection(proxy).asInstanceOf[HttpURLConnection])
 			} else {
 				Some(url.openConnection().asInstanceOf[HttpURLConnection])
 			}
 		} catch {
-			case _: Exception => None
+			case e: Exception => {
+				progressMeter.fail(e.getMessage)
+				None
+			}
 		}
 	}
 
 	private def getFileSize(): Long = {
-		progressMeter.info("Try to get file size")
 		connect().flatMap{ cn =>
 			try {
 				Some(cn.getContentLengthLong())
@@ -85,11 +88,11 @@ abstract class HTTPFetcher[T](
 			} finally {
 				cn.disconnect()
 			}
-		}.getOrElse(-1)
+		}.getOrElse(-1L)
 	}
 
 	private def download(): Unit = {
-		progressMeter.info("Download: " + part.uri)
+		progressMeter.info("Downloading: " + part.uri)
 		val batchSize = 1000000L
 		val size = getFileSize()
 		progressMeter.total(size)
@@ -103,13 +106,11 @@ abstract class HTTPFetcher[T](
 				val chan = out.getChannel()
 				var pos = 0L
 				var cnt = chan.transferFrom(in, pos, batchSize)
-				progressMeter.info("File size: " + size + " bytes. Start downloading")
 				while (cnt > 0L) {
 					progressMeter.tick(cnt)
 					pos += cnt
 					cnt = chan.transferFrom(in, pos, batchSize)
 				}
-				progressMeter.info("Done")
 			} catch {
 				case e: Exception => 
 					progressMeter.fail(e.getMessage())

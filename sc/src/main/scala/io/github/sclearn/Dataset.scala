@@ -22,7 +22,7 @@ object Dataset {
 		def remaining = _total - _value
 		def total(value: Long): Unit = {
 			_total = value
-			println("Download: " + _total)
+			println("File size: " + _total)
 		}
 		def tick(value: Long): Unit = {
 			_value += value

@@ -79,6 +79,51 @@ URL: http://yann.lecun.com/exdb/mnist/
 	)
 }
 
+
+private[known] object ut {
+
+	def readImages(path: Path, log: ProgressMeter): Dataset[ArrayRow] = {
+		log.info("reading images: " + path.toString)
+		Resource(new DataInputStream(new FileInputStream(path.toString))).map{ in =>
+			if (in.readInt() != 2051) {
+				log.fail("Wrong MNIST images labels code")
+				throw new RuntimeException("Wrong MNIST code")
+			}
+			val count	= in.readInt()
+			val width	= in.readInt()
+			val height	= in.readInt()
+			val ds = new Array[ArrayRow](count)
+			for (c <- 0 until count) {
+				val row = new Array[Any](width * height)
+				for (x <- 0 until width; y <- 0 until height) {
+					row(y * width + x) = in.readUnsignedByte()
+				}
+				ds(c) = new ArrayRow(row)
+			}
+			new ArrayDataset[ArrayRow](ds)
+		}
+	}
+
+	def readLabels(path: Path, log: ProgressMeter): Dataset[ArrayRow] = {
+		log.info("reading labels: " + path.toString)
+		Resource(new DataInputStream(new FileInputStream(path.toString))).map{ in =>
+			if (in.readInt() != 2049) {
+				log.fail("Wrong MNIST labels code")
+				throw new RuntimeException("Wrong MNIST labels code")
+			}
+			val count	= in.readInt()
+			val ds = new Array[ArrayRow](count)
+			for (c <- 0 until count) {
+				val row = new Array[Any](1)
+				row(0) = in.readUnsignedByte()
+				ds(c) = new ArrayRow(row)
+			}
+			new ArrayDataset[ArrayRow](ds)
+		}
+	}
+
+}
+
 case class MNIST_TRAIN_IMAGES_FETCHER(
 	override val progressMeter: ProgressMeter
 	, override val cacheDir: Path
@@ -90,21 +135,53 @@ case class MNIST_TRAIN_IMAGES_FETCHER(
 ) {
 
 	def read(): Dataset[ArrayRow] = {
-		progressMeter.info("reading: " + path.toString)
-		for (in <- Resource(new DataInputStream(new FileInputStream(path.toString)))) {
-			if (in.readInt() != 2051) {
-				progressMeter.fail("Wrong MNIST code")
-			}
-			val count	= in.readInt()
-			val width	= in.readInt()
-			val height	= in.readInt()
-			for (c <- 0 until count) {
-				for (x <- 0 until width; y <- 0 until height) {
-					in.readUnsignedByte()
-				}
-			}
-		}
-		null
+		ut.readImages(path, progressMeter)
+	}
+
+}
+
+case class MNIST_TRAIN_LABELS_FETCHER(
+	override val progressMeter: ProgressMeter
+	, override val cacheDir: Path
+) extends HTTPFetcher[ArrayRow](
+	pack			= MNIST_PACK
+	, part			= MNIST_TRAIN_LABELS
+	, progressMeter	= progressMeter
+	, cacheDir		= cacheDir
+) {
+	def read(): Dataset[ArrayRow] = {
+		ut.readLabels(path, progressMeter)
+	}
+}
+
+case class MNIST_TEST_IMAGES_FETCHER(
+	override val progressMeter: ProgressMeter
+	, override val cacheDir: Path
+) extends HTTPFetcher[ArrayRow](
+	pack			= MNIST_PACK
+	, part			= MNIST_TEST_IMAGES
+	, progressMeter	= progressMeter
+	, cacheDir		= cacheDir
+) {
+
+	def read(): Dataset[ArrayRow] = {
+		ut.readImages(path, progressMeter)
+	}
+
+}
+
+case class MNIST_TEST_LABELS_FETCHER(
+	override val progressMeter: ProgressMeter
+	, override val cacheDir: Path
+) extends HTTPFetcher[ArrayRow](
+	pack			= MNIST_PACK
+	, part			= MNIST_TEST_LABELS
+	, progressMeter	= progressMeter
+	, cacheDir		= cacheDir
+) {
+
+	def read(): Dataset[ArrayRow] = {
+		ut.readLabels(path, progressMeter)
 	}
 
 }
@@ -116,7 +193,10 @@ case class MNIST_FETCHER_BUILDER(
 
 	def part(name: String): Fetcher[ArrayRow] = {
 		name match {
-			case `MNIST_TRAIN_IMAGES`.`name` => MNIST_TRAIN_IMAGES_FETCHER(progressMeter, cacheDir)
+			case `MNIST_TRAIN_IMAGES`.`name`	=> MNIST_TRAIN_IMAGES_FETCHER(progressMeter, cacheDir)
+			case `MNIST_TRAIN_LABELS`.`name`	=> MNIST_TRAIN_LABELS_FETCHER(progressMeter, cacheDir)
+			case `MNIST_TEST_IMAGES`.`name`		=> MNIST_TEST_IMAGES_FETCHER(progressMeter, cacheDir)
+			case `MNIST_TEST_LABELS`.`name`		=> MNIST_TEST_LABELS_FETCHER(progressMeter, cacheDir)
 			case _ => {
 				val msg = "Dataset mnist has no part named <" + name + ">. Try one of <train-images>, <train-labels>, <test-images>, <test-labels>."
 				progressMeter.fail(msg)
@@ -124,4 +204,5 @@ case class MNIST_FETCHER_BUILDER(
 			}
 		}
 	}
+
 }

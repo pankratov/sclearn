@@ -5,7 +5,10 @@ object Application {
 
 	def main(args: Array[String]): Unit = {
 
-		val iris = Dataset.IRIS.part("all").fetch()
+		val mnistTstImg = Dataset.MNIST.part("test-images").fetch()
+		val mnistTstLbl = Dataset.MNIST.part("test-labels").fetch()
+		val mnistTrnLbl = Dataset.MNIST.part("train-labels").fetch()
+		val mnistTrnImg = Dataset.MNIST.part("train-images").fetch()
 
 		// val ds = Dataset("iris").
 		// val mnist = Dataset.MNIST.fetch()
