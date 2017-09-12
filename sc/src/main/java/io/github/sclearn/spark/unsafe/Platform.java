@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe;
+package io.github.sclearn.spark.unsafe;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

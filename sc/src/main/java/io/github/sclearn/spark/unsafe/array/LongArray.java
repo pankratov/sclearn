@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.array;
+package io.github.sclearn.spark.unsafe.array;
 
-import org.apache.spark.unsafe.Platform;
-import org.apache.spark.unsafe.memory.MemoryBlock;
+import io.github.sclearn.spark.unsafe.Platform;
+import io.github.sclearn.spark.unsafe.memory.MemoryBlock;
 
 /**
  * An array of long values. Compared with native JVM arrays, this:

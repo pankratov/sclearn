@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.memory;
+package io.github.sclearn.spark.unsafe.memory;
 
-import org.apache.spark.unsafe.Platform;
+import io.github.sclearn.spark.unsafe.Platform;
 
 /**
  * A simple {@link MemoryAllocator} that uses {@code Unsafe} to allocate off-heap memory.

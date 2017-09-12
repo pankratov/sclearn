@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.bitset;
+package io.github.sclearn.spark.unsafe.bitset;
 
-import org.apache.spark.unsafe.Platform;
+import io.github.sclearn.spark.unsafe.Platform;
 
 /**
  * Methods for working with fixed-size uncompressed bitsets.

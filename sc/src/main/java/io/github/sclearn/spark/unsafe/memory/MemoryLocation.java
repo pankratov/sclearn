@@ -15,17 +15,40 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe;
+package io.github.sclearn.spark.unsafe.memory;
 
-import java.io.IOException;
+import javax.annotation.Nullable;
 
-public abstract class KVIterator<K, V> {
+/**
+ * A memory location. Tracked either by a memory address (with off-heap allocation),
+ * or by an offset from a JVM object (in-heap allocation).
+ */
+public class MemoryLocation {
 
-  public abstract boolean next() throws IOException;
+  @Nullable
+  Object obj;
 
-  public abstract K getKey();
+  long offset;
 
-  public abstract V getValue();
+  public MemoryLocation(@Nullable Object obj, long offset) {
+    this.obj = obj;
+    this.offset = offset;
+  }
 
-  public abstract void close();
+  public MemoryLocation() {
+    this(null, 0);
+  }
+
+  public void setObjAndOffset(Object newObj, long newOffset) {
+    this.obj = newObj;
+    this.offset = newOffset;
+  }
+
+  public final Object getBaseObject() {
+    return obj;
+  }
+
+  public final long getBaseOffset() {
+    return offset;
+  }
 }

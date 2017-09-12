@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe;
+package io.github.sclearn.spark.unsafe;
 
 /**
  * Class to make changes to record length offsets uniform through out

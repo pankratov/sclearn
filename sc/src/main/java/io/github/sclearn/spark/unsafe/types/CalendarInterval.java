@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.types;
+package io.github.sclearn.spark.unsafe.types;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;

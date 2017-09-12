@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.memory;
+package io.github.sclearn.spark.unsafe.memory;
 
 public interface MemoryAllocator {
 

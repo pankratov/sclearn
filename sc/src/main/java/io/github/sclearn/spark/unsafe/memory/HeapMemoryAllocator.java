@@ -15,15 +15,16 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.memory;
+package io.github.sclearn.spark.unsafe.memory;
 
 import javax.annotation.concurrent.GuardedBy;
+
+import io.github.sclearn.spark.unsafe.Platform;
+
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-
-import org.apache.spark.unsafe.Platform;
 
 /**
  * A simple {@link MemoryAllocator} that can allocate up to 16GB using a JVM long primitive array.

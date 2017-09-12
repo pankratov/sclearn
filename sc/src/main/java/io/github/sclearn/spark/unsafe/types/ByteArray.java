@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.types;
-
-import org.apache.spark.unsafe.Platform;
+package io.github.sclearn.spark.unsafe.types;
 
 import java.util.Arrays;
+
+import io.github.sclearn.spark.unsafe.Platform;
 
 public final class ByteArray {
 

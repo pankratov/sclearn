@@ -16,21 +16,22 @@
  */
 
 
-package org.apache.spark.unsafe.types;
+package io.github.sclearn.spark.unsafe.types;
 
 import javax.annotation.Nonnull;
+
+import io.github.sclearn.spark.unsafe.Platform;
+import io.github.sclearn.spark.unsafe.array.ByteArrayMethods;
+import io.github.sclearn.spark.unsafe.hash.Murmur3_x86_32;
+
+import static io.github.sclearn.spark.unsafe.Platform.*;
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
-
-import org.apache.spark.unsafe.Platform;
-import org.apache.spark.unsafe.array.ByteArrayMethods;
-import org.apache.spark.unsafe.hash.Murmur3_x86_32;
-
-import static org.apache.spark.unsafe.Platform.*;
 
 
 /**
@@ -1126,7 +1127,7 @@ public final class UTF8String implements Comparable<UTF8String>, Externalizable,
    * substitutions) that are required to change one of the strings into the other.
    */
   public int levenshteinDistance(UTF8String other) {
-    // Implementation adopted from org.apache.common.lang3.StringUtils.getLevenshteinDistance
+    // Implementation adopted from io.github.sclearn.common.lang3.StringUtils.getLevenshteinDistance
 
     int n = numChars();
     int m = other.numChars();

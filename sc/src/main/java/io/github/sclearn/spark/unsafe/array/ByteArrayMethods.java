@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.array;
+package io.github.sclearn.spark.unsafe.array;
 
-import org.apache.spark.unsafe.Platform;
+import io.github.sclearn.spark.unsafe.Platform;
 
 public class ByteArrayMethods {
 

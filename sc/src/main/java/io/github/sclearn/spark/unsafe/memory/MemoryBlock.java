@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.spark.unsafe.memory;
+package io.github.sclearn.spark.unsafe.memory;
 
 import javax.annotation.Nullable;
 
-import org.apache.spark.unsafe.Platform;
+import io.github.sclearn.spark.unsafe.Platform;
 
 /**
  * A consecutive block of memory, starting at a {@link MemoryLocation} with a fixed size.

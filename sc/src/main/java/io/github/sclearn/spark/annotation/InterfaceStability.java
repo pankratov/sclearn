@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.annotation;
+package io.github.sclearn.spark.annotation;
 
 import java.lang.annotation.Documented;
 
