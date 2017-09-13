@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
-import org.apache.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.annotation.InterfaceStability
 
 /**
  * The data type representing calendar time intervals. The calendar time interval is stored

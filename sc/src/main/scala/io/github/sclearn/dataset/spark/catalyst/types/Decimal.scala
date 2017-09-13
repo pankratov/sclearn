@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import java.lang.{Long => JLong}
 import java.math.{BigInteger, MathContext, RoundingMode}
 
-import org.apache.spark.annotation.InterfaceStability
-import org.apache.spark.sql.AnalysisException
+import io.github.sclearn.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.sql.AnalysisException
 
 /**
  * A mutable implementation of BigDecimal that can hold a Long if values are small enough.
@@ -33,7 +33,7 @@ import org.apache.spark.sql.AnalysisException
  */
 @InterfaceStability.Unstable
 final class Decimal extends Ordered[Decimal] with Serializable {
-  import org.apache.spark.sql.types.Decimal._
+  import io.github.sclearn.spark.sql.types.Decimal._
 
   private var decimalVal: BigDecimal = null
   private var longVal: Long = 0L

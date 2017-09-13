@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Try
@@ -23,9 +23,9 @@ import scala.util.control.NonFatal
 
 import org.json4s.JsonDSL._
 
-import org.apache.spark.SparkException
-import org.apache.spark.annotation.InterfaceStability
-import org.apache.spark.util.Utils
+import io.github.sclearn.spark.SparkException
+import io.github.sclearn.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.util.Utils
 
 /**
  * A [[StructType]] object can be constructed by
@@ -39,8 +39,8 @@ import org.apache.spark.util.Utils
  *
  * Scala Example:
  * {{{
- * import org.apache.spark.sql._
- * import org.apache.spark.sql.types._
+ * import io.github.sclearn.spark.sql._
+ * import io.github.sclearn.spark.sql.types._
  *
  * val struct =
  *   StructType(
@@ -70,12 +70,12 @@ import org.apache.spark.util.Utils
  * //    ...
  * }}}
  *
- * A [[org.apache.spark.sql.Row]] object is used as a value of the [[StructType]].
+ * A [[io.github.sclearn.spark.sql.Row]] object is used as a value of the [[StructType]].
  *
  * Scala Example:
  * {{{
- * import org.apache.spark.sql._
- * import org.apache.spark.sql.types._
+ * import io.github.sclearn.spark.sql._
+ * import io.github.sclearn.spark.sql.types._
  *
  * val innerStruct =
  *   StructType(

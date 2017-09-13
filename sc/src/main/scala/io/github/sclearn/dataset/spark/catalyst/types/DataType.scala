@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import java.util.Locale
 
@@ -24,8 +24,8 @@ import org.json4s.JsonAST.JValue
 import org.json4s.JsonDSL._
 import org.json4s.jackson.JsonMethods._
 
-import org.apache.spark.annotation.InterfaceStability
-import org.apache.spark.util.Utils
+import io.github.sclearn.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.util.Utils
 
 /**
  * The base type of all Spark SQL data types.

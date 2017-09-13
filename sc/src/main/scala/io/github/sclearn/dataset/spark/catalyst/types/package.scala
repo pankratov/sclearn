@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql
+package io.github.sclearn.spark.sql
 
 /**
  * Contains a type system for attributes produced by relations, including complex types like

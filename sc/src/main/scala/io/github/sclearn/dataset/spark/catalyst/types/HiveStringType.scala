@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.math.Ordering
 import scala.reflect.runtime.universe.typeTag
 
-import org.apache.spark.unsafe.types.UTF8String
+import io.github.sclearn.spark.unsafe.types.UTF8String
 
 /**
  * A hive string type for compatibility. These datatypes should only used for parsing,

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.internal
+package io.github.sclearn.spark.internal
 
 
 trait Logging {

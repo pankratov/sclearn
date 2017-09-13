@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.catalyst.util
+package io.github.sclearn.spark.sql.catalyst.util
 
-import org.apache.spark.sql.types._
+import io.github.sclearn.spark.sql.types._
 
 /**
  * Helper functions to check for valid data types.

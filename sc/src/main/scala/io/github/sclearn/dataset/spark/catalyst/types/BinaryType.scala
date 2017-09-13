@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.math.Ordering
 import scala.reflect.runtime.universe.typeTag
 
-import org.apache.spark.annotation.InterfaceStability
-import org.apache.spark.sql.catalyst.util.TypeUtils
+import io.github.sclearn.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.sql.catalyst.util.TypeUtils
 
 
 /**

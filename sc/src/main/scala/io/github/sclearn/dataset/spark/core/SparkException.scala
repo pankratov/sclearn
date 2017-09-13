@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark
+package io.github.sclearn.spark
 
 class SparkException(message: String, cause: Throwable)
   extends Exception(message, cause) {

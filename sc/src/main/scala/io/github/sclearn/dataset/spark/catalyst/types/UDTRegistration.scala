@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.collection.mutable
 
-import org.apache.spark.SparkException
-import org.apache.spark.internal.Logging
-import org.apache.spark.util.Utils
+import io.github.sclearn.spark.SparkException
+import io.github.sclearn.spark.internal.Logging
+import io.github.sclearn.spark.util.Utils
 
 /**
  * This object keeps the mappings between user classes and their User Defined Types (UDTs).
@@ -34,12 +34,12 @@ object UDTRegistration extends Serializable with Logging {
 
   /** The mapping between the Class between UserDefinedType and user classes. */
   private lazy val udtMap: mutable.Map[String, String] = mutable.Map(
-    ("org.apache.spark.ml.linalg.Vector", "org.apache.spark.ml.linalg.VectorUDT"),
-    ("org.apache.spark.ml.linalg.DenseVector", "org.apache.spark.ml.linalg.VectorUDT"),
-    ("org.apache.spark.ml.linalg.SparseVector", "org.apache.spark.ml.linalg.VectorUDT"),
-    ("org.apache.spark.ml.linalg.Matrix", "org.apache.spark.ml.linalg.MatrixUDT"),
-    ("org.apache.spark.ml.linalg.DenseMatrix", "org.apache.spark.ml.linalg.MatrixUDT"),
-    ("org.apache.spark.ml.linalg.SparseMatrix", "org.apache.spark.ml.linalg.MatrixUDT"))
+    ("io.github.sclearn.spark.ml.linalg.Vector", "io.github.sclearn.spark.ml.linalg.VectorUDT"),
+    ("io.github.sclearn.spark.ml.linalg.DenseVector", "io.github.sclearn.spark.ml.linalg.VectorUDT"),
+    ("io.github.sclearn.spark.ml.linalg.SparseVector", "io.github.sclearn.spark.ml.linalg.VectorUDT"),
+    ("io.github.sclearn.spark.ml.linalg.Matrix", "io.github.sclearn.spark.ml.linalg.MatrixUDT"),
+    ("io.github.sclearn.spark.ml.linalg.DenseMatrix", "io.github.sclearn.spark.ml.linalg.MatrixUDT"),
+    ("io.github.sclearn.spark.ml.linalg.SparseMatrix", "io.github.sclearn.spark.ml.linalg.MatrixUDT"))
 
   /**
    * Queries if a given user class is already registered or not.

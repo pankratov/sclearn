@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.math.{Fractional, Numeric, Ordering}
 import scala.math.Numeric.FloatAsIfIntegral
 import scala.reflect.runtime.universe.typeTag
 
-import org.apache.spark.annotation.InterfaceStability
-import org.apache.spark.util.Utils
+import io.github.sclearn.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.util.Utils
 
 /**
  * The data type representing `Float` values. Please use the singleton `DataTypes.FloatType`.

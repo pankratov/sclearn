@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.reflect.runtime.universe.TypeTag
 
-import org.apache.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.annotation.InterfaceStability
 
 /**
  * A non-concrete data type, reserved for internal uses.

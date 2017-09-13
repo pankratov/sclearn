@@ -1,6 +1,6 @@
 package io.github.sclearn
 
-import org.apache.spark.sql.types.StructType
+import io.github.sclearn.spark.sql.types.StructType
 
 
 trait Dataset[T] {

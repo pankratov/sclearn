@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.math.Ordering
 
 import org.json4s.JsonDSL._
 
-import org.apache.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.annotation.InterfaceStability
 
 /**
  * Companion object for ArrayType.

@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.collection.mutable
 
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
 
-import org.apache.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.annotation.InterfaceStability
 
 
 /**

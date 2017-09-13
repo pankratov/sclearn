@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.types
+package io.github.sclearn.spark.sql.types
 
 import scala.math.{Integral, Numeric, Ordering}
 import scala.reflect.runtime.universe.typeTag
 
-import org.apache.spark.annotation.InterfaceStability
+import io.github.sclearn.spark.annotation.InterfaceStability
 
 /**
  * The data type representing `Short` values. Please use the singleton `DataTypes.ShortType`.

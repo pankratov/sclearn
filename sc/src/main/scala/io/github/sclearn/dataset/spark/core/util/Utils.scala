@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.util
+package io.github.sclearn.spark.util
 
 import java.io._
 import java.lang.management.{LockInfo, ManagementFactory, MonitorInfo, ThreadInfo}
