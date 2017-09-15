@@ -5,13 +5,10 @@ import { Container, Table, Grid } from 'semantic-ui-react'
 import linal from 'linear-algebra'
 import JsonV from 'react-json-viewer'
 import {
-	ResponsiveContainer,
-	XAxis, YAxis,
-	CartesianGrid,
-	Legend, Tooltip,
-	LineChart, Line,
-	ScatterChart, Scatter
-} from 'recharts'
+	XYPlot, XAxis, YAxis, HorizontalGridLines
+	, LineSeries
+	, MarkSeries
+} from 'react-vis'
 
 const Matrix = linal().Matrix
 
@@ -21,21 +18,41 @@ const color = {
 	"versicolor"	: "#f5f5f5"
 }
 
+function nextColor(col,amt) {
+	var usePound = false;
+	if ( col[0] == "#" ) {
+		col = col.slice(1);
+		usePound = true;
+	}
+
+	var num = parseInt(col,16);
+
+	var r = (num >> 16) + amt;
+
+	if ( r > 255 ) r = 255;
+	else if  (r < 0) r = 0;
+
+	var b = ((num >> 8) & 0x00FF) + amt;
+
+	if ( b > 255 ) b = 255;
+	else if  (b < 0) b = 0;
+
+	var g = (num & 0x0000FF) + amt;
+
+	if ( g > 255 ) g = 255;
+	else if  ( g < 0 ) g = 0;
+
+	return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+}
+
 function gendata(n) {
-	const items = _.range(100).map( x => ({ x: x, y: x * 2 }) )
+	const items = _.range(n).map( x => ({ x: x, y: x * 2 + (Math.random() - 0.5) * 100 }) )
 	return { items: items } 
 }
 
 function linreg(ds) {
 
-	const data = { items: [
-		{ x: 0, y: 0 }
-		, { x: 1, y: 2 }
-		, { x: 2, y: 4 }
-		, { x: 3, y: 6 }
-		, { x: 4, y: 8 }
-		, { x: 5, y: 10 }
-	] }
+	const data = gendata(100)
 
 	const threshold = 0.001
 	const X = xmat(data)
@@ -62,16 +79,20 @@ function linreg(ds) {
 	}
 
 	function line(theta) {
+		const max = 100
 		return [
-			{ x: 0, y: theta[0] }
-			, { x: 100, y: theta[0] + 100 * theta[1] }
+			{ x: 0, y: theta.data[0][0] }
+			, { x: max, y: theta.data[0][0] + max * theta.data[1][0] }
 		]
 	}
 
 	var gradlines = []
 	var grad = []
 
-	function gd(theta, X, y, threshold) {
+	function gd(theta, _X, _y, threshold) {
+		const X = new Matrix(_X.data.map(row => [ row[0], row[1] / 100 ]))
+		const y = new Matrix(_y.data.map(row => [ row[0] / 100 ]))
+
 		var g = gradient(theta, X, y)
 
 		grad.push([ theta.data[0][0], theta.data[1][0] ])
@@ -92,17 +113,19 @@ function linreg(ds) {
 	gd(theta, X, y, threshold)
 
 	return {
-		X: X
+		points: data.items
+		, X: X
 		, y: y
 		, theta: theta
 		, grad: new Matrix(grad)
 		, gradgraph: grad.map(row => ({ x: row[0], y: row[1] }))
+		, gradlines: gradlines
 	}
 }
 
 class MatrixViewer extends React.Component {
+
 	render() {
-		console.log(this.props)
 		const mat = this.props.mat
 		return (
 			<Container fluid >
@@ -125,45 +148,27 @@ class MatrixViewer extends React.Component {
 
 class MainStats extends React.Component {
 	render() {
-		const ds = gendata(10)
-		const data = linreg(ds)
+		const ds = linreg(ds)
+		const last = ds.gradlines[ds.gradlines.length - 1]
 		return (
 			<Container fluid >
 				<Grid padded >
-					<Grid.Column width={3}><MatrixViewer mat={data.X} /></Grid.Column>
-					<Grid.Column width={3}><MatrixViewer mat={data.y} /></Grid.Column>
-					<Grid.Column width={3}><MatrixViewer mat={data.theta} /></Grid.Column>
-					<Grid.Column width={4} style={ { height: "500px" } } >
-						<ScatterChart
-								data={data.gradgraph}
-								width={600} height={200}
-								margin={{top: 20, right: 30, left: 20, bottom: 5}}
-							>
-							<Scatter key="x" fill="green" />
-							<CartesianGrid strokeDasharray="3 3" />
-							<YAxis dataKey="x" type="number" />
-							<XAxis dataKey="y" type="number" />
-							<Legend />
-							<Tooltip />
-						</ScatterChart>
-					</Grid.Column>
+					<Grid.Column width={3}><MatrixViewer mat={ds.X} /></Grid.Column>
+					<Grid.Column width={3}><MatrixViewer mat={ds.y} /></Grid.Column>
+					<Grid.Column width={3}><MatrixViewer mat={ds.theta} /></Grid.Column>
 					<Grid.Column width={16} style={ { height: "500px" } } >
-						<ResponsiveContainer>
-							<ScatterChart
-									data={ds.items}
-									width={600} height={200}
-									margin={{top: 20, right: 30, left: 20, bottom: 5}}
-								>
-								<Scatter key="x" data={ds.items} fill="green" />
-								<CartesianGrid strokeDasharray="3 3" />
-								<YAxis dataKey={"x"} type="number" />
-								<XAxis dataKey={"y"} type="number" />
-								<Legend />
-								<Tooltip />
-							</ScatterChart>
-						</ResponsiveContainer>
+						<XYPlot width={900} height={600} style={{ width: "100%" }} >
+							<HorizontalGridLines />
+							{ds.gradlines.map( (line, idx) =>
+								<LineSeries key={idx} data={line} stroke={nextColor("#79C7E3", -idx)} />
+							)}
+							<LineSeries data={last} stroke={"blue"} />
+							<MarkSeries data={ds.points} stroke="#1A3177" fill="#1A3177" />
+							<XAxis />
+							<YAxis />
+						</XYPlot>
 					</Grid.Column>
-					<Grid.Column width={3}><MatrixViewer mat={data.grad} /></Grid.Column>
+					{ /* <Grid.Column width={3}><MatrixViewer mat={ds.grad} /></Grid.Column> */ }
 				</Grid>
 			</Container>
 		)
