@@ -11,7 +11,7 @@ import java.io.FileReader
 import java.io.BufferedReader
 import java.util.StringTokenizer
 
-import io.github.sclearn.spark.sql.types._
+import io.github.sclearn.dataset.spark.sql.types._
 
 import util.Resource
 import monitor.ProgressMeter

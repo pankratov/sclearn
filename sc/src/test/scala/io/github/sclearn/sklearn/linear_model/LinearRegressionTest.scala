@@ -19,11 +19,11 @@ class LinearRegressionTest extends AssertionsForJUnit {
 		val test_X	= null
 		val test_y	= null
 
-		val regr = LinearRegression()
-		regr.fit(train_X, train_y)
-
-		val predicted_y = regr.predict(test_X)
-		println(regr.coef_)
+//		val regr = LinearRegression()
+//		regr.fit(train_X, train_y)
+//
+//		val predicted_y = regr.predict(test_X)
+//		println(regr.coef_)
 
 	}
 

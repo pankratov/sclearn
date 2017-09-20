@@ -2,7 +2,7 @@ package io.github.sclearn
 package dataset
 package impl
 
-import io.github.sclearn.spark.sql.types.StructType
+import io.github.sclearn.dataset.spark.sql.types.StructType
 
 
 private[sclearn] class ArrayRow(val schema: StructType, protected[impl] val values: Array[Any]) extends Row {
