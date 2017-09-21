@@ -3,15 +3,14 @@ package sklearn.linear_model
 
 import org.scalatest.junit.AssertionsForJUnit
 import scala.collection.mutable.ListBuffer
-import org.junit.Assert._
-import org.junit.Test
-import org.junit.Before
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.DisplayName
 
-
-class LinearRegressionTest extends AssertionsForJUnit {
+class LinearRegressionTests {
 
 	// TODO: implement all
 	@Test
+  @DisplayName("😱")
 	def testLinearRegression = {
 
 		val train_X	= null
@@ -19,6 +18,7 @@ class LinearRegressionTest extends AssertionsForJUnit {
 		val test_X	= null
 		val test_y	= null
 
+		assert(1 == 1)
 //		val regr = LinearRegression()
 //		regr.fit(train_X, train_y)
 //
