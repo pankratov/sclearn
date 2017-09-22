@@ -3,7 +3,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Table, Grid } from 'semantic-ui-react'
 import linal from 'linear-algebra'
-import JsonV from 'react-json-viewer'
 import {
 	XYPlot, XAxis, YAxis, HorizontalGridLines
 	, LineSeries
@@ -46,7 +45,10 @@ function nextColor(col,amt) {
 }
 
 function gendata(n) {
-	const items = _.range(n).map( x => ({ x: x, y: x * 2 + (Math.random() - 0.5) * 100 }) )
+	const items = []
+	for (var i = 0, t = 0; i < 100; ++i, t += 0.1) {
+		items.push({ x: t, y: Math.sin(t) / 3 })
+	}
 	return { items: items } 
 }
 
@@ -99,7 +101,7 @@ function linreg(ds) {
 		gradlines.push(line(theta))
 
 		var i = 0
-		while (len(g) > threshold) {
+		while (len(g) > threshold && i < 40) {
 			theta = theta.minus(g.mulEach(alpha))
 
 			grad.push([ theta.data[0][0], theta.data[1][0] ])
