@@ -4,14 +4,14 @@ var HtmlWebpackPlugin = require("html-webpack-plugin")
 const webpackMerge = require('webpack-merge')
 const commonConfig = require('./webpack.base.js')
 
-const HOST = "localhost"
+const HOST = "datamot"
 const PORT = "8888"
 
 const GLOBALS = {
 	'process.env': {
 		'NODE_ENV': JSON.stringify('development')
 	},
-	MATRIX_ENTRANCE: '"http://localhost:2718"',
+	MATRIX_ENTRANCE: '"http://datamot:3141"',
 	__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'true'))
 }
 

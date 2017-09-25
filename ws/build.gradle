@@ -1,0 +1,42 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+apply plugin: 'scala'
+apply plugin: 'application'
+
+mainClassName = 'io.github.sclearn.ws.Application'
+
+configurations {
+	runtime.exclude module: 'slf4j-simple'
+}
+
+configurations.all {
+	resolutionStrategy {
+		force 'com.google.guava:guava:14.0.1'
+		force 'com.google.guava:guava-gwt:14.0.1'
+	}
+}
+
+dependencies {
+	compile group: 'org.scala-lang'		, name: 'scala-library'			, version: '2.12.3'
+	compile group: 'org.scala-lang'		, name: 'scala-reflect'			, version: '2.12.3'
+	compile group: 'org.scala-lang'		, name: 'scala-compiler'		, version: '2.12.3'
+
+	compile group: 'com.fasterxml.jackson.module',
+			name: 'jackson-module-scala_2.12',
+			version: '2.8.9'
+
+	compile	group: 'org.slf4j'			, name: 'slf4j-api'				, version: '1.7.24'
+	compile	group: 'ch.qos.logback'		, name: 'logback-classic'		, version: '1.2.1'
+
+	compile group: 'de.heikoseeberger'	, name: 'akka-http-jackson_2.12'	, version: '1.14.0'
+	compile group: 'ch.megard'			, name: 'akka-http-cors_2.12'		, version: '0.1.11'
+}

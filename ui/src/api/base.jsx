@@ -1,1 +1,7 @@
 export const MATRIX_BASE_URL = MATRIX_ENTRANCE
+
+
+export const COMPILE_INIT = 'COMPILE_INIT'
+export const COMPILE_SUCC = 'COMPILE_SUCC'
+export const COMPILE_FAIL = 'COMPILE_FAIL'
+

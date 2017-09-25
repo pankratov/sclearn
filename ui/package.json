@@ -11,6 +11,9 @@
 	"dependencies": {
 		"lodash": "^4.17.4",
 		"moment": "2.18.1",
+		"axios": "^0.15.3",
+		"brace": "0.10.0",
+		"react-ace": "5.2.0",
 		"react": "15.4.2",
 		"react-dom": "15.4.2",
 		"react-measure": "^1.4.6",
