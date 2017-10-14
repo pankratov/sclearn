@@ -1,9 +1,10 @@
 package io.github.sclearn.stat
 
 import io.github.sclearn.Dataset
+import io.github.sclearn.dataset.impl.VectorDataset
 
 trait Generator {
-  type Continous1DDistribution = Dataset[Double]
+  type Continous1DDistribution = VectorDataset[Double]
 
   def uniform(min: Double = 0.0, max: Double = 1.0)(size: Int): Continous1DDistribution
   def normal(mu: Double = 0.0, sigma: Double = 1.0)(size: Int): Continous1DDistribution

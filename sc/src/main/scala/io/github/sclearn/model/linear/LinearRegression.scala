@@ -2,14 +2,10 @@ package io.github.sclearn
 package model
 package linear
 
-trait LinearRegression[T] {
+trait LinearRegression {
   // TODO
-  var w: Dataset[T] = null
-  def fit(x: Dataset[T], y: Dataset[T]): Unit
-  def predict(x: Dataset[T]): Dataset[T] = {
-    // x' * w
-    ???
-  }
+  // def fit[T](x: Dataset[T], y: Dataset[T]): Unit = ???
+  // def predict[T](x: Dataset[T]): Dataset[T] = ???
 }
 
 object LinearRegression {

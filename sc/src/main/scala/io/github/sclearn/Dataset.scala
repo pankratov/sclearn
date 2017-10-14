@@ -9,9 +9,7 @@ trait Dataset[T] {
 	def schema: StructType
 	def collect(): Array[T]
 	def map[U](func : T => U): Dataset[U] = ???
-	def + (other: Dataset[T]): Dataset[T] = ???
-	def * (scalar: T): Dataset[T] = ???
-	def *: (scalar: T): Dataset[T] = *(scalar)
+
 }
 
 object Dataset {

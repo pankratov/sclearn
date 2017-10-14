@@ -4,21 +4,31 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions._
 import org.junit.runner.RunWith
 import org.junit.platform.runner.JUnitPlatform
-
-
+import io.github.sclearn.model.linear.LinearRegression
 
 @RunWith(classOf[JUnitPlatform])
 class LocalGeneratorTests {
 
   import LocalGenerator._
 
-   @Test
-   def testSomething() {
-     val points = uniform(0, 5)(10)
-     val noise = normal(10)
-     println(points)
-     val values = (points * 4) + noise
-     println(values)
-     assertEquals(true, true)
-   }
-} 
+  @Test
+  def testSomething() {
+    val k = 13
+    val b = 56
+    
+    
+    val X = uniform(0, 5)(1000)
+    val noise = normal(1000)
+    val y = X * k + b + noise
+    val regr = LinearRegression()
+    val trainX = X.addOnes
+    regr.fit(trainX, y)
+    val predicted_y = regr.predict(trainX)
+    println(y)
+    println(regr.coef)
+    println(predicted_y)
+
+
+    assertEquals(true, true)
+  }
+}
