@@ -6,7 +6,10 @@ import scala.collection.mutable.ListBuffer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.DisplayName
+import org.junit.runner.RunWith
+import org.junit.platform.runner.JUnitPlatform
 
+@RunWith(classOf[JUnitPlatform])
 class LinearRegressionTests {
 
 	// TODO: implement all

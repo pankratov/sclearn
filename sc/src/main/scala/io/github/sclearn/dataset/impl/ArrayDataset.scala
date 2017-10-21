@@ -7,6 +7,6 @@ import io.github.sclearn.dataset.spark.sql.types.StructType
 
 class ArrayDataset[T](override val schema: StructType, protected val values: Array[T]) extends Dataset[T] {
 
-	def collect(): Array[T] = values
+	override def collect(): Array[T] = values
 
 }

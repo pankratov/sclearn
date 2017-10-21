@@ -6,8 +6,8 @@ import io.github.sclearn.dataset.impl.known._
 
 trait Dataset[T] {
 
-	def schema: StructType
-	def collect(): Array[T]
+	def schema: StructType = ???
+	def collect(): Array[T] = ???
 	def map[U](func : T => U): Dataset[U] = ???
 
 }
