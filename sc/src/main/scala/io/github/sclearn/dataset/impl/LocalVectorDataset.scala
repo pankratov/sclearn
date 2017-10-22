@@ -6,44 +6,42 @@ import io.github.sclearn.Dataset
 import breeze.linalg.DenseVector
 import breeze.linalg.DenseMatrix
 import scala.reflect.ClassTag
+import breeze.math.Field
 
-class LocalVectorDataset[T: ClassTag](val vector: DenseVector[T])(implicit N: Numeric[T]) extends VectorDataset[T] {
+class LocalVectorDataset[T: ClassTag](val vector: DenseVector[T])(implicit N: Field[T]) extends VectorDataset[T] {
 
   def length = vector.length
 
-  def addOnes = ???
-  //  {
-  //
-  //
-  //    new LocalMatrixDataset(DenseMatrix.horzcat(DenseVector.ones[Double](vector.length).toDenseMatrix.t, vector.toDenseMatrix.t))
-  //  }
+  def addOnes =
+    {
+      new LocalMatrixDataset(DenseMatrix.horzcat(DenseVector.ones[T](vector.length).toDenseMatrix.t, vector.toDenseMatrix.t))
+    }
 
-  def m: MatrixDataset[T] = ???
-  // new LocalMatrixDataset(vector.toDenseMatrix.t)
+  def m: MatrixDataset[T] = new LocalMatrixDataset(vector.toDenseMatrix.t)
 
   override def toString = vector.toString
-  def +(other: Dataset[T]): Dataset[T] = {
-    // new LocalVectorDataset(vector + ot.vector)
-    ???
+
+  def +(other: VectorDataset[T]): LocalVectorDataset[T] = {
+    other match {
+      case LocalVectorDataset(otherVector) => new LocalVectorDataset(vector + otherVector)
+      case _ => ???
+    }
   }
 
   def +(scalar: T): LocalVectorDataset[T] = {
-    new LocalVectorDataset(vector.map(N.plus(_, scalar)))
+    new LocalVectorDataset(vector.map(N.+(_, scalar)))
   }
 
   def *(scalar: T): LocalVectorDataset[T] = {
-    /// new LocalVectorDataset(vector.map(_ * scalar))
-    ???
+    new LocalVectorDataset(vector.map(N.*(_, scalar)))
   }
 
   def *(other: LocalMatrixDataset[T]): LocalMatrixDataset[T] = {
-    // new LocalMatrixDataset(vector.toDenseMatrix * other.matrix)
-    ???
+    new LocalMatrixDataset(vector.toDenseMatrix * other.matrix)
   }
 
   def t: LocalMatrixDataset[T] = {
-    /// new LocalMatrixDataset(vector.toDenseMatrix.t)
-    ???
+    new LocalMatrixDataset(vector.toDenseMatrix.t)
   }
 
   override def hashCode = vector.hashCode()
@@ -57,8 +55,11 @@ class LocalVectorDataset[T: ClassTag](val vector: DenseVector[T])(implicit N: Nu
 }
 
 object LocalVectorDataset {
-  def apply[T: ClassTag](values: Array[T])(implicit N: Numeric[T]): LocalVectorDataset[T] = {
+  def apply[T: ClassTag](values: Array[T])(implicit N: Field[T]): LocalVectorDataset[T] = {
     new LocalVectorDataset(new DenseVector(values))
+  }
+  def apply[T: ClassTag](values: T*)(implicit N: Field[T]): LocalVectorDataset[T] = {
+    new LocalVectorDataset(new DenseVector(values.toArray))
   }
   def unapply[T](localVector: LocalVectorDataset[T]): Option[DenseVector[T]] = Option(localVector.vector)
 }

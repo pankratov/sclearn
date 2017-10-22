@@ -13,31 +13,22 @@ class LocalGeneratorTests {
 
   @Test
   def testSomething() {
-//    val k = 13
-//    val b = 56
-//
-//    val X = uniform(0, 5)(1000)
-//    val noise = normal(1000)
-//    val y = X * k + b + noise
-//    val regr = LinearRegression()
-//    val trainX = X.addOnes
-//    regr.fit(trainX, y)
-//    val predicted_y = regr.predict(trainX)
-//    println(y)
-//    println(regr.coef)
-//    println(predicted_y)
+    val k = 13
+    val b = 56
+
+    val X = uniform(0, 5)(1000)
+    val noise = normal(1000)
+    val y = X * k + b + noise
+    val regr = LinearRegression()
+    val trainX = X.addOnes
+    regr.fit(trainX, y)
+    println(regr.coef)
+
+    val predicted_y = regr.predict(trainX)
+    println(y)
+    println(predicted_y)
 
     assertEquals(true, true)
-  }
+  } 
   
-  def tryit[T: Numeric](d: T) {
-    val p = implicitly[Numeric[T]].times(d, d)
-    println(p)
-  }
-  
-  @Test
-  def testNumeric() {
-    tryit(3.0)
-    assertEquals(1, 1)
-  }
 }
