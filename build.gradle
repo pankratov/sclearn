@@ -1,4 +1,5 @@
 allprojects {
+	group 'io.github.sclearn'
 	version '0.0.2-SNAPSHOT'
 }
 
