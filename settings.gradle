@@ -1,2 +1,4 @@
 include 'sc'
 include 'ui'
+
+project(":sc").name = 'core_2.12'

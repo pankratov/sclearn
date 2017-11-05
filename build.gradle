@@ -1,4 +1,6 @@
 allprojects {
+	apply plugin: 'maven'
+
 	group 'io.github.sclearn'
 	version '0.0.2-SNAPSHOT'
 }
